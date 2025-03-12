@@ -11,6 +11,7 @@
 	let colorScheme = localStorage.colorScheme ?? 'light dark';
 	let root = globalThis?.document?.documentElement;
 	$: root?.style.setProperty('color-scheme', colorScheme);
+	$: localStorage.colorScheme = colorScheme;
 </script>
 
 <nav>
