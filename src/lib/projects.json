@@ -1,62 +1,74 @@
 [
 	{
-		"title": "Lorem ipsum dolor sit.",
+		"title": "Assignment 1: Data, Visualization, and Housing",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2025"
 	},
 	{
-		"title": "Molestias minima velit exercitationem.",
+		"title": "Assignment 2: Exploratory Visual Analysis",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2024"
 	},
 	{
-		"title": "Harum fugit earum deleniti!",
+		"title": "Assignment 3: Visualization Critique & Redesign",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2024"
 	},
 	{
-		"title": "Reprehenderit voluptates a architecto?",
+		"title": "Assignment 4: Persuasive or Deceptive Visualization?",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2024"
 	},
 	{
 		"title": "Sed voluptatem commodi laborum!",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2020"
 	},
 	{
 		"title": "Voluptates soluta delectus eius.",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2020"
 	},
 	{
 		"title": "Quidem nesciunt optio consequuntur!",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2020"
 	},
 	{
 		"title": "Quam fuga debitis ratione!",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2017"
 	},
 	{
 		"title": "Facere placeat molestiae quae?",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2018"
 	},
 	{
 		"title": "Consectetur voluptas voluptates rem?",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2023"
 	},
 	{
 		"title": "Unde enim velit voluptatibus!",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2021"
 	},
 	{
 		"title": "Non magnam dolore suscipit.",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": ""
+		"description": "",
+		"year": "2022"
 	}
 ]
