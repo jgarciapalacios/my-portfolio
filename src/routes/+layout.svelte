@@ -1,10 +1,10 @@
 <script>
 	import { page } from '$app/stores';
 	let pages = [
-		{ url: '/', title: 'Home' },
-		{ url: '/contacts', title: 'Contacts' },
-		{ url: '/projects', title: 'Projects' },
-		{ url: '/resume', title: 'Resume' },
+		{ url: './', title: 'Home' },
+		{ url: './contacts', title: 'Contacts' },
+		{ url: './projects', title: 'Projects' },
+		{ url: './resume', title: 'Resume' },
 		{ url: 'https://github.com/jgarciapalacios', title: 'Github' }
 	];
 	let localStorage = globalThis.localStorage ?? {};
@@ -17,7 +17,7 @@
 	{#each pages as p}
 		<a
 			href={p.url}
-			class:current={$page.route.id === p.url}
+			class:current={'.' + $page.route.id === p.url}
 			target={p.url.startsWith('http') ? '_blank' : null}
 		>
 			{p.title}
