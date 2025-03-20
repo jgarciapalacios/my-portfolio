@@ -2,73 +2,73 @@
 	{
 		"title": "Assignment 1: Data, Visualization, and Housing",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "An analysis of housing data using various visualization techniques to uncover trends and insights in the real estate market.",
 		"year": "2025"
 	},
 	{
 		"title": "Assignment 2: Exploratory Visual Analysis",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "A project focused on using exploratory data analysis methods to visually investigate complex datasets and identify patterns.",
 		"year": "2024"
 	},
 	{
 		"title": "Assignment 3: Visualization Critique & Redesign",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "Critiquing existing visualizations and applying design principles to improve their effectiveness and clarity.",
 		"year": "2024"
 	},
 	{
 		"title": "Assignment 4: Persuasive or Deceptive Visualization?",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "Exploring the ethical implications of data visualization by distinguishing between persuasive and deceptive practices.",
 		"year": "2024"
 	},
 	{
-		"title": "Sed voluptatem commodi laborum!",
+		"title": "Climate Spiral Visualization",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "An animated representation of global temperature changes over time, illustrating the progression of global warming. ([NASA Scientific Visualization Studio](https://svs.gsfc.nasa.gov/5190/))",
 		"year": "2020"
 	},
 	{
-		"title": "Voluptates soluta delectus eius.",
+		"title": "ChronoZoom: Interactive Timeline of the Universe",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "A free, open-source project that visualizes time from the Big Bang to the present day, helping users grasp the concept of 'Big History'. ([Microsoft Research](https://www.microsoft.com/en-us/research/project/chronozoom/))",
 		"year": "2020"
 	},
 	{
-		"title": "Quidem nesciunt optio consequuntur!",
+		"title": "DataViva: Brazilian Economic Data Visualization",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "A platform that provides visualizations of Brazilian economic data, including exports, industries, and occupations, through interactive applications.",
 		"year": "2020"
 	},
 	{
-		"title": "Quam fuga debitis ratione!",
+		"title": "Phoenixmap: Visualizing 2D Spatial Distributions",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "An abstract approach to visualize multiple spatial distributions simultaneously, aiding in the comparison of 2D spatial data.",
 		"year": "2017"
 	},
 	{
-		"title": "Facere placeat molestiae quae?",
+		"title": "TMAP: Visualizing High-Dimensional Data as Trees",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "A method to represent large, high-dimensional datasets as two-dimensional trees, preserving both global and local features for human interpretation.",
 		"year": "2018"
 	},
 	{
-		"title": "Consectetur voluptas voluptates rem?",
+		"title": "COVID-19 Mobility and Sociability Trends",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
-		"year": "2023"
-	},
-	{
-		"title": "Unde enim velit voluptatibus!",
-		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "An interactive tool to evaluate mobility and sociability trends during the COVID-19 pandemic, assisting in understanding the impact on transportation systems.",
 		"year": "2021"
 	},
 	{
-		"title": "Non magnam dolore suscipit.",
+		"title": "Data Sketches: Creative Data Visualizations",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "",
+		"description": "A collection of 24 unique data visualization projects exploring various topics, created by Nadieh Bremer and Shirley Wu.",
 		"year": "2022"
+	},
+	{
+		"title": "Scientific Visualization: Applications in Natural Sciences",
+		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
+		"description": "Utilizing visualization techniques to represent scientific data, aiding in the exploration and understanding of complex natural phenomena.",
+		"year": "2023"
 	}
 ]
