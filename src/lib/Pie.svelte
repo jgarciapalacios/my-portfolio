@@ -30,7 +30,7 @@
 	</svg>
 	<ul class="legend">
 		{#each data as d, index}
-			<li>
+			<li class:selected={selectedIndex === index}>
 				<span class="swatch" style="background-color: {colors(index)};" />
 				<span class="label">{d.label}</span>
 				<span class="value">({d.value})</span>
