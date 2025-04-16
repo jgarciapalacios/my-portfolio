@@ -3,7 +3,10 @@
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
 	import Bar from '$lib/Bar.svelte';
+	import StackedBar from '../../lib/StackedBar.svelte';
 	import { base } from '$app/paths';
+	import FileLines from '../../lib/FileLines.svelte';
+	import Scrolly from 'svelte-scrolly';
 
 	let data = [];
 	let commits = [];
@@ -90,9 +93,22 @@
 	$: maxDatePlusOne = new Date(maxDate);
 	$: maxDatePlusOne.setDate(maxDatePlusOne.getDate() + 1);
 
-	$: xScale = d3.scaleTime().domain([minDate, maxDatePlusOne]).range([0, width]).nice();
+	let commitProgress = 100;
+	$: timeScale = d3
+		.scaleTime()
+		.domain([minDate ?? new Date(2025, 1, 2), maxDate ?? new Date(2025, 4, 2)]) // Feb 2 to May 2
+		.range([0, 960]);
+	$: commitMaxTime = timeScale.invert(commitProgress);
+	$: filteredCommits = commits.filter((commit) => commit.datetime <= commitMaxTime);
+	$: filteredLines = data.filter((d) => d.datetime <= commitMaxTime);
 
-	$: yScale = d3.scaleLinear().domain([24, 0]).range([height, 0]);
+	$: xScale = d3
+		.scaleTime()
+		.domain([minDate, commitMaxTime])
+		.range([usableArea.left, usableArea.right])
+		.nice();
+
+	$: yScale = d3.scaleLinear().domain([24, 0]).range([usableArea.bottom, usableArea.top]);
 	let margin = { top: 10, right: 10, bottom: 30, left: 20 };
 	let usableArea = {
 		top: margin.top,
@@ -102,19 +118,18 @@
 	};
 	usableArea.width = usableArea.right - usableArea.left;
 	usableArea.height = usableArea.bottom - usableArea.top;
+
 	let xAxis, yAxis;
 	$: {
 		d3.select(xAxis).call(d3.axisBottom(xScale));
-		d3.select(yAxis).call(
-			d3.axisLeft(yScale).tickFormat((d) => String(d % 24).padStart(2, '0') + ':00')
-		);
+		d3.select(yAxis).call(d3.axisLeft(yScale));
 	}
 	let yAxisGridlines;
 	$: {
 		d3.select(yAxisGridlines).call(d3.axisLeft(yScale).tickFormat('').tickSize(-usableArea.width));
 	}
 	let hoveredIndex = -1;
-	$: hoveredCommit = commits[hoveredIndex] ?? hoveredCommit ?? {};
+	$: hoveredCommit = filteredCommits[hoveredIndex] ?? hoveredCommit ?? {};
 	let commitTooltip;
 	let tooltipPosition = { x: 0, y: 0 };
 	let cursor;
@@ -147,7 +162,9 @@
 	let clickedCommits = [];
 
 	$: allTypes = Array.from(new Set(data.map((d) => d.type)));
-	$: selectedLines = (clickedCommits.length > 0 ? clickedCommits : commits).flatMap((d) => d.lines);
+	$: selectedLines = (clickedCommits.length > 0 ? clickedCommits : filteredCommits).flatMap(
+		(d) => d.lines
+	);
 	$: selectedCounts = d3.rollup(
 		selectedLines,
 		(v) => v.length,
@@ -158,13 +175,55 @@
 
 <h1>Meta</h1>
 <h3>Commit History</h3>
+<div class="summary-box">
+	<div class="summary-title">Summary</div>
+	<div class="stats-grid">
+		<div class="stat">
+			<div class="stat-label">Commits</div>
+			<div class="stat-value">{filteredCommits.length}</div>
+		</div>
+		<div class="stat">
+			<div class="stat-label">Files</div>
+			<div class="stat-value">{summary.files}</div>
+		</div>
+		<div class="stat">
+			<div class="stat-label">Total LOC</div>
+			<div class="stat-value">{summary.loc}</div>
+		</div>
+		<div class="stat">
+			<div class="stat-label">Max Depth</div>
+			<div class="stat-value">{summary.maxDepth}</div>
+		</div>
+		<div class="stat">
+			<div class="stat-label">Longest Line</div>
+			<div class="stat-value">{summary.longestLine}</div>
+		</div>
+		<div class="stat">
+			<div class="stat-label">Max Lines</div>
+			<div class="stat-value">{summary.maxLinesInFile}</div>
+		</div>
+		<div class="stat">
+			<div class="stat-label">Most Active Time</div>
+			<div class="stat-value">{summary.mostActivePeriod}</div>
+		</div>
+	</div>
+</div>
+<div class="slider-container">
+	<div class="slider-row">
+		<label for="time-slider">Show commits up to:</label>
+		<input type="range" id="time-slider" min="0" max="960" bind:value={commitProgress} />
+	</div>
+	<time class="slider-time">
+		{commitMaxTime?.toLocaleString()}
+	</time>
+</div>
 <div>
 	<svg viewBox="0 0 {width} {height}">
 		<g transform="translate(0, {usableArea.bottom})" bind:this={xAxis} />
 		<g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
 		<g class="gridlines" transform="translate({usableArea.left}, 0)" bind:this={yAxisGridlines} />
 		<g class="dots">
-			{#each commits as commit, index}
+			{#each filteredCommits as commit, index}
 				<circle
 					on:click={(evt) => dotInteraction(index, evt)}
 					on:mouseenter={(evt) => dotInteraction(index, evt)}
@@ -203,41 +262,9 @@
 		<dt>Lines Changed</dt>
 		<dd>{hoveredCommit.totalLines}</dd>
 	</dl>
-	<Bar data={languageBreakdown} {width} />
-	<div class="summary-box">
-		<div class="summary-title">Summary</div>
-		<div class="stats-grid">
-			<div class="stat">
-				<div class="stat-label">Commits</div>
-				<div class="stat-value">{summary.commits}</div>
-			</div>
-			<div class="stat">
-				<div class="stat-label">Files</div>
-				<div class="stat-value">{summary.files}</div>
-			</div>
-			<div class="stat">
-				<div class="stat-label">Total LOC</div>
-				<div class="stat-value">{summary.loc}</div>
-			</div>
-			<div class="stat">
-				<div class="stat-label">Max Depth</div>
-				<div class="stat-value">{summary.maxDepth}</div>
-			</div>
-			<div class="stat">
-				<div class="stat-label">Longest Line</div>
-				<div class="stat-value">{summary.longestLine}</div>
-			</div>
-			<div class="stat">
-				<div class="stat-label">Max Lines</div>
-				<div class="stat-value">{summary.maxLinesInFile}</div>
-			</div>
-			<div class="stat">
-				<div class="stat-label">Most Active Time</div>
-				<div class="stat-value">{summary.mostActivePeriod}</div>
-			</div>
-		</div>
-	</div>
+	<StackedBar data={languageBreakdown} {width} />
 </div>
+<FileLines lines={filteredLines} {width} />
 
 <style>
 	circle {
@@ -337,5 +364,28 @@
 	}
 	.selected {
 		fill: var(--color-accent);
+	}
+	.slider-container {
+		display: grid;
+		grid-template-rows: auto auto;
+		max-width: 100%;
+		margin-bottom: 1em;
+	}
+
+	.slider-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		white-space: nowrap;
+	}
+
+	.slider {
+		flex: 1;
+	}
+
+	.slider-time {
+		margin-top: 0.3em;
+		font-size: 0.9rem;
+		color: #666;
 	}
 </style>

@@ -1,20 +1,22 @@
 <script>
 	import * as d3 from 'd3';
+
 	export let data = [];
+	export let selectedIndex = -1;
 
-	let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
-	let sliceGenerator = d3.pie().value((d) => d.value);
+	// Keep arc and pie generator definitions outside reactive context unless they depend on reactive inputs
+	const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
+	const sliceGenerator = d3.pie().value((d) => d.value);
 
-	let arcData;
-	let arcs;
+	const colors = d3.scaleOrdinal(d3.schemeTableau10);
 
-	$: {
-		// Reactively calculate arcData and arcs the same way we did before with sliceGenerator and arcGenerator
+	let arcData = [];
+	let arcs = [];
+
+	$: if (data && data.length) {
 		arcData = sliceGenerator(data);
 		arcs = arcData.map((d) => arcGenerator(d));
 	}
-	export let selectedIndex = -1;
-	let colors = d3.scaleOrdinal(d3.schemeTableau10);
 </script>
 
 <div class="container">
@@ -24,10 +26,11 @@
 				d={arc}
 				fill={colors(index)}
 				class:selected={selectedIndex === index}
-				on:click={(e) => (selectedIndex = index)}
+				on:click={() => (selectedIndex = index)}
 			/>
 		{/each}
 	</svg>
+
 	<ul class="legend">
 		{#each data as d, index}
 			<li class:selected={selectedIndex === index}>
@@ -78,7 +81,6 @@
 		color: #555;
 	}
 
-	/* When a path is selected, make all non-selected paths 50% opacity */
 	svg:has(.selected) path:not(.selected) {
 		opacity: 50%;
 	}
@@ -98,6 +100,7 @@
 	ul:has(.selected) li:not(.selected) {
 		color: gray;
 	}
+
 	path {
 		cursor: pointer;
 	}
