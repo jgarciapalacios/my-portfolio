@@ -191,7 +191,7 @@
 		</div>
 		<div class="stat">
 			<div class="stat-label">Total LOC</div>
-			<div class="stat-value">{summary.loc}</div>
+			<div class="stat-value">{filteredLines.length}</div>
 		</div>
 		<div class="stat">
 			<div class="stat-label">Max Depth</div>
