@@ -157,17 +157,17 @@
 
 <style>
 	:global(text.filename) {
-		font-size: 1rem;
+		font-size: 0.5rem;
 		font-weight: bold;
 		font-family: monospace;
 	}
 
 	:global(text.linecount) {
-		font-size: 0.8rem;
+		font-size: 0.5rem;
 		fill: #666;
 	}
 
 	:global(text.unit-dots) {
-		font-size: 2.2rem;
+		font-size: 1.6rem;
 	}
 </style>
