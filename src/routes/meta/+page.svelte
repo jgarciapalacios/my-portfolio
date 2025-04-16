@@ -216,17 +216,43 @@
 	<!-- Story here -->
 	{#each commits as commit, index}
 		<p>
-			On {commit.datetime.toLocaleString('en', { dateStyle: 'full', timeStyle: 'short' })},
-			{index === 0
-				? 'I set forth on my very first commit, beginning a magical journey of code. You can view it '
-				: 'I added another enchanted commit, each line sparkling with a touch of wonder. See it '}
-			<a href={commit.url} target="_blank">
-				{index === 0 ? 'here' : 'here'}
-			</a>. This update transformed {commit.totalLines} lines across {d3.rollups(
-				commit.lines,
-				(D) => D.length,
-				(d) => d.file
-			).length} files. With every commit, our project grows into a kingdom of dreams.
+			<strong
+				>{commit.datetime.toLocaleString('en', { dateStyle: 'full', timeStyle: 'short' })}</strong
+			>
+			—
+			{#if index === 0}
+				This was our very first step: <a href={commit.url} target="_blank">the inaugural commit</a>.
+				It introduced <strong>{commit.totalLines}</strong> lines across
+				<strong
+					>{d3.rollups(
+						commit.lines,
+						(d) => d.length,
+						(d) => d.file
+					).length}</strong
+				> files, laying the foundation of what would become a much larger journey.
+			{:else if index === commits.length - 1}
+				And finally, we arrive at <a href={commit.url} target="_blank">our latest commit</a>. With
+				<strong>{commit.totalLines}</strong>
+				lines changed and contributions to
+				<strong
+					>{d3.rollups(
+						commit.lines,
+						(d) => d.length,
+						(d) => d.file
+					).length}</strong
+				> files, it marks the culmination of our development story — at least for now.
+			{:else}
+				We continued building with <a href={commit.url} target="_blank">this commit</a>, authored by
+				<strong>{commit.author}</strong>. It changed <strong>{commit.totalLines}</strong> lines
+				across
+				<strong
+					>{d3.rollups(
+						commit.lines,
+						(d) => d.length,
+						(d) => d.file
+					).length}</strong
+				> files. Each change brought us closer to our vision.
+			{/if}
 		</p>
 	{/each}
 	<svelte:fragment slot="viz">
@@ -290,22 +316,48 @@
 <Scrolly bind:progress={raceProgress} --scrolly-layout="viz-first">
 	{#each commits as commit, index}
 		<p>
-			On {commit.datetime.toLocaleString('en', { dateStyle: 'full', timeStyle: 'short' })},
-			{index === 0
-				? 'I set forth on my very first commit, beginning a magical journey of code. You can view it '
-				: 'I added another enchanted commit, each line sparkling with a touch of wonder. See it '}
-			<a href={commit.url} target="_blank">
-				{index === 0 ? 'here' : 'here'}
-			</a>. This update transformed {commit.totalLines} lines across {d3.rollups(
-				commit.lines,
-				(D) => D.length,
-				(d) => d.file
-			).length} files. With every commit, our project grows into a kingdom of dreams.
+			<strong
+				>{commit.datetime.toLocaleString('en', { dateStyle: 'full', timeStyle: 'short' })}</strong
+			>
+			—
+			{#if index === 0}
+				This was our very first step: <a href={commit.url} target="_blank">the inaugural commit</a>.
+				It introduced <strong>{commit.totalLines}</strong> lines across
+				<strong
+					>{d3.rollups(
+						commit.lines,
+						(d) => d.length,
+						(d) => d.file
+					).length}</strong
+				> files, laying the foundation of what would become a much larger journey.
+			{:else if index === commits.length - 1}
+				And finally, we arrive at <a href={commit.url} target="_blank">our latest commit</a>. With
+				<strong>{commit.totalLines}</strong>
+				lines changed and contributions to
+				<strong
+					>{d3.rollups(
+						commit.lines,
+						(d) => d.length,
+						(d) => d.file
+					).length}</strong
+				> files, it marks the culmination of our development story — at least for now.
+			{:else}
+				We continued building with <a href={commit.url} target="_blank">this commit</a>, authored by
+				<strong>{commit.author}</strong>. It changed <strong>{commit.totalLines}</strong> lines
+				across
+				<strong
+					>{d3.rollups(
+						commit.lines,
+						(d) => d.length,
+						(d) => d.file
+					).length}</strong
+				> files. Each change brought us closer to our vision.
+			{/if}
 		</p>
 	{/each}
 
 	<svelte:fragment slot="viz">
-		<FileLines lines={filteredLines2} {width} />
+		<FileLines lines={filteredLines2} width={500} />
 	</svelte:fragment>
 </Scrolly>
 
